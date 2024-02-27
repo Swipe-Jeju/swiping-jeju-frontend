@@ -1,7 +1,7 @@
  <div><img src="https://capsule-render.vercel.app/api?type=waving&color=0:1FA9DC,100:D5E9AA&text=SwipingJeju" /></div>
 
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FSwipe-Jeju%2Fswiping-jeju-frontend&count_bg=%2332FF14&title_bg=%23000000&icon=googlemaps.svg&icon_color=%23FFFFFF&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FSwipe-Jeju%2Fswiping-jeju-frontend&count_bg=%232ED016&title_bg=%23000000&icon=googlemaps.svg&icon_color=%23FFFFFF&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 
 # 👋 introduce team member
