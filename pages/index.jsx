@@ -1,12 +1,5 @@
-import styled from "styled-components";
+import * as S from "./style";
 
-const Container = styled.div`
-`
-
-export default function Main(){
-  return(
-    <Container>
-      Here is Main Page!!
-    </Container>
-  )
+export default function Main() {
+    return <S.Container>Here is Main Page!!</S.Container>;
 }
