@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useState, useRef, useMemo, useEffect } from "react";
-import * as S from "./style";
+import * as S from "@/components/_styled/swipingStyled";
 import Card from "@/components/swiper/Card";
 import CustomModal from "@/components/modal/CustomModal";
 import { useRouter } from "next/router";
@@ -49,19 +49,19 @@ const db = [
 function Swiping() {
   const [placeId, setPlaceId] = useState([]);
   const [lastDirection, setLastDirection] = useState();
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+  const [currentIndex, setCurrentIndex] = useState(db?.length - 1);
   const currentIndexRef = useRef(currentIndex);
   const route = useRouter();
 
   const [isComplete, setIsComplete] = useState(false);
   const [isRunout, setIsRunout] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = currentIndex < db?.length - 1;
   const canSwipe = currentIndex >= 0;
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(db?.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -80,7 +80,7 @@ function Swiping() {
       setPlaceId((prev) => [...prev, placeId]);
     }
     if (
-      currentIndex === db.length - 1 &&
+      currentIndex === db?.length - 1 &&
       localStorage.getItem("isFirst") === "true"
     ) {
       setIsFirst(true);
@@ -95,7 +95,7 @@ function Swiping() {
   }, [currentIndex]);
 
   const swipe = async (dir, placeId) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < db?.length) {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
@@ -211,7 +211,7 @@ function Swiping() {
             onClick={() => setIsComplete(true)}
             width="50px"
             height="50px"
-            disabled={placeId.length === 0}
+            disabled={placeId?.length === 0}
           >
             <Image src="/svg/pause.svg" alt="like" width={25} height={25} />
           </S.SwipingActionButton>

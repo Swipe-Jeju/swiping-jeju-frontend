@@ -5,6 +5,11 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.js", "**/*.js", "**/*.jsx"],
+  "include": [
+    "next-env.d.js",
+    "**/*.js",
+    "**/*.jsx",
+    "scripts/ingest-data-local.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -2,7 +2,7 @@ import React, { useState, forwardRef } from "react";
 import { useSpring, a } from "@react-spring/web";
 import BackCard from "./BackCard";
 import FrontCard from "./FrontCard";
-import * as S from "../../pages/swiping/style";
+import * as S from "@/components/_styled/swipingStyled";
 
 const Card = forwardRef(({ place, swiped, outOfFrame, index }, ref) => {
   const [flipped, setFlipped] = useState(false);
