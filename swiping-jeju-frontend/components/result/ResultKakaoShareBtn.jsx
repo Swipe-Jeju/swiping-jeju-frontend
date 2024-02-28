@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 
-import KakaoImage from "../../../public/images/share/kakao.png";
-import GoogleImage from "../../../public/images/share/google.png";
-import FacebookImage from "../../../public/images/share/facebook.png";
-import NaverImage from "../../../public/images/share/naver.png";
+import KakaoImage from "@/public/images/share/kakao.png";
+import GoogleImage from "@/public/images/share/google.png";
+import FacebookImage from "@/public/images/share/facebook.png";
+import NaverImage from "@/public/images/share/naver.png";
 import * as S from "./style";
 
 const KakaoShareButton = ({ description }) => {
