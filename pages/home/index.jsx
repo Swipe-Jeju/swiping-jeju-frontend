@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import HomeMapSelction from "@/components/home/homeMapSelection/homeMapSelection";
 import HomeStyleInput from "@/components/home/homeStyleInput/HomeStyleInput";
+import HomeLanding from "@/components/home/homeLading/HomeLanding";
 
 function Home() {
   const [step, setStep] = useState(0);

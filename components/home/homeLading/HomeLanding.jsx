@@ -7,6 +7,7 @@ import Logo from "../../../public/images/background/logo.png";
 import * as S from "./style";
 import Image from "next/image";
 
+
 function HomeLanding({ onNext }) {
     const [isClicked, setIsClicked] = useState(false); // 클릭 상태
 

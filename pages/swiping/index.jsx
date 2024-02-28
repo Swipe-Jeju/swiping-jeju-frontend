@@ -176,7 +176,6 @@ function Swiping() {
           </S.SwipingRunoutContainer>
         )}
 
-        {isComplete && <CompleteMessage />}
         <S.SwipingActionButtonContainer>
           <S.SwipingActionButton
             type="button"
