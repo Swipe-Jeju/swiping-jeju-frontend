@@ -37,4 +37,6 @@ const Card = forwardRef(({ character, swiped, outOfFrame, index }, ref) => {
   );
 });
 
+Card.displayName = "Card";
+
 export default Card;
