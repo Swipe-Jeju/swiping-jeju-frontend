@@ -7,7 +7,7 @@ const Wrapper = styled.div`
     max-width: 430px;
     width: 100%;
     min-height: 100vh;
-    background-color: white;
+    background-color: #000000;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
     flex-direction: column;
