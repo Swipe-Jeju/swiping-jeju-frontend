@@ -43,7 +43,8 @@ const nextConfig = {
                 destination: `https://${APIURL}/api/v1/album/:id`,
             },
         ];
-    },
+    },    
+    output: 'standalone',
 };
 
 module.exports = nextConfig;
