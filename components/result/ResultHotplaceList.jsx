@@ -1,4 +1,7 @@
 import React from "react";
+import * as S from "./style";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { RiDirectionLine } from "react-icons/ri";
 
 function ResultHotplaceList({
     hotplaces, // hotplaces prop을 전달 받음
@@ -10,38 +13,30 @@ function ResultHotplaceList({
     };
 
     return (
-        <div>
+        <S.HotPlaceListContainer>
             {hotplaces &&
                 hotplaces.map(
                     (
                         place // hotplaces 존재 여부를 확인
                     ) => (
-                        <div
+                        <S.HotPlaceBox
                             key={place.id}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginBottom: "10px",
-                            }}
+                            style={{}}
+                            onClick={() =>
+                                openInGoogleMaps(
+                                    place.name,
+                                    place.lat,
+                                    place.lng
+                                )
+                            }
                         >
-                            <span style={{ marginRight: "10px" }}>
-                                {place.name}
-                            </span>
-                            <button
-                                onClick={() =>
-                                    openInGoogleMaps(
-                                        place.name,
-                                        place.lat,
-                                        place.lng
-                                    )
-                                }
-                            >
-                                지도에서 열기
-                            </button>
-                        </div>
+                            <FaMapMarkerAlt color="#00FF66" />
+                            {place.name.slice(0, 5)}...
+                            <RiDirectionLine />
+                        </S.HotPlaceBox>
                     )
                 )}
-        </div>
+        </S.HotPlaceListContainer>
     );
 }
 

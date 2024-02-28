@@ -21,4 +21,5 @@ export const AnimationContainer = styled.div`
         css`
             animation: ${fadeIn} 1000ms forwards;
         `}
+    margin-top: 3rem;
 `;

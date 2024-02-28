@@ -43,7 +43,7 @@ export const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 27px;
+    margin-top: 7rem;
 `;
 
 export const MainButton = styled.div`

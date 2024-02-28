@@ -10,6 +10,17 @@ export default function HeadTitle() {
             ></meta>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link
+                rel="preconnect"
+                href="https://fonts.gstatic.com"
+                crossorigin
+            />
+            <link
+                href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap"
+                rel="stylesheet"
+            />
+
             <title>스와이핑 제주!</title>
             <meta name="description" content="나만의 제주도, 스와이핑 제주" />
         </Head>

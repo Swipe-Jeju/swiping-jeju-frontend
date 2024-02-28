@@ -2,10 +2,13 @@
 
 import { useRouter } from "next/router";
 import * as S from "@/components/_styled/resultStyled";
+import MainImg from "@/public/images/background/char_3.png";
 import { useEffect, useState } from "react";
 import ResultHotplaceList from "@/components/result/ResultHotplaceList";
 import KakaoMap from "./KakaoMap";
 import KakaoShareButton from "@/components/result/ResultKakaoShareBtn";
+import Image from "next/image";
+import Char4 from "@/public/images/background/nocap.png";
 // import { API } from "@/pages/axios";
 
 function Result() {
@@ -13,6 +16,22 @@ function Result() {
     const { id } = router.query;
     const [result, setResult] = useState();
     const [isLoaded, setIsLoaded] = useState(true);
+    const [isClicked, setIsClicked] = useState(false); // 클릭 상태
+
+    const handleClick = () => {
+        setIsClicked(true);
+    };
+
+    // isClicked 상태가 true로 변경될 때 handleNext 함수 호출
+    useEffect(() => {
+        if (isClicked) {
+            // 1초 후에 handleNext 함수 호출
+            const timeoutId = setTimeout(() => {
+                router.push("/");
+            }, 1000);
+            return () => clearTimeout(timeoutId);
+        }
+    }, [isClicked]); // 의존성 배열에 isClicked와 handleNext 추가
 
     const fetchNotice = async () => {
         setIsLoaded(true);
@@ -31,7 +50,8 @@ function Result() {
                 // ai가 만들어주는 제목
                 title: "성산이 만든 제주도",
                 // ai가 만들어주는 내용물
-                content: "이 코스는 블라 블라 블라블라합니다.",
+                content:
+                    "너의 여행 리스트를 보니까 산, 바다, 카페라는 여행 목적에 아주 잘 부합하고 있어!\n만장굴에서는 자연 속 아름다운 산의 경관을, 중문 색달 해변과 섭지코지에서는 아름다운 바다..",
                 // 핫플레이스 지도 위도 경도 리스트
                 hotPlace: [
                     {
@@ -84,12 +104,37 @@ function Result() {
         <>
             <S.ResultWrapper>
                 <S.Title>{result.title}</S.Title>
-                카카오 지도가 쾅 하고 아래 있음~
-                <KakaoMap hotplaces={result?.hotPlace || []} />
-                <S.Content>{result.content}</S.Content>
+                <S.ImageContainer>
+                    <Image
+                        src={MainImg}
+                        alt="mainImg"
+                        width={277}
+                        height={155}
+                    />
+                </S.ImageContainer>
+                <S.ContentContainer>
+                    <S.Content>{result.content}</S.Content>
+                </S.ContentContainer>
                 <ResultHotplaceList hotplaces={result.hotPlace} />
+                <KakaoMap hotplaces={result?.hotPlace || []} />
+
                 {/* 카카오 공유하기 버튼 */}
                 <KakaoShareButton description={result.content} />
+                {/* 스와이프 다시 하러가기  */}
+                <S.ButtonContainer>
+                    <S.MainButton onClick={handleClick}>
+                        스와이프 다시 하러가기
+                        <S.SlideImageContainer isClicked={isClicked}>
+                            <S.TrailEffect /> {/* 흔적 요소 */}
+                            <Image
+                                src={Char4}
+                                alt="Character4"
+                                width={55}
+                                height={47}
+                            />
+                        </S.SlideImageContainer>
+                    </S.MainButton>
+                </S.ButtonContainer>
             </S.ResultWrapper>
         </>
     );
