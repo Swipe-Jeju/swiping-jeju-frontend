@@ -1,14 +1,16 @@
 import Image from "next/image";
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import * as S from "./style";
 import Card from "@/components/swiper/Card";
+import CustomModal from "@/components/modal/CustomModal";
+import { useRouter } from "next/router";
 
 const db = [
   {
     title: "Richard Hendricks",
     img: "/0.jpeg",
-    longtitude: 37.1234,
-    langtitude: 127.5678,
+    lng: 126.9408234,
+    lat: 33.45888279999969,
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     keyword: ["vibe", "ocean", "party"],
@@ -17,8 +19,8 @@ const db = [
   {
     title: "Erlich Bachman",
     img: "/1.jpeg",
-    longtitude: 37.4321,
-    langtitude: 127.8765,
+    lng: 126.9408234,
+    lat: 33.45888279999969,
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     keyword: ["cafe", "nature", "adventure"],
     placeId: "placeId2",
@@ -26,8 +28,8 @@ const db = [
   {
     title: "Monica Hall",
     img: "/2.jpeg",
-    longtitude: 37.5678,
-    langtitude: 127.1234,
+    lng: 126.9408234,
+    lat: 33.45888279999969,
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     keyword: ["beach", "relaxation", "food"],
     placeId: "placeId3",
@@ -35,8 +37,8 @@ const db = [
   {
     title: "Jared Dunn",
     img: "/3.jpeg",
-    longtitude: 37.8765,
-    langtitude: 127.4321,
+    lng: 126.9408234,
+    lat: 33.45888279999969,
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     keyword: ["culture", "history", "sightseeing"],
@@ -49,8 +51,13 @@ function Swiping() {
   const [lastDirection, setLastDirection] = useState();
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const currentIndexRef = useRef(currentIndex);
+  const route = useRouter();
 
-  console.log(placeId);
+  const [isComplete, setIsComplete] = useState(false);
+  const [isRunout, setIsRunout] = useState(false);
+  const [isFirst, setIsFirst] = useState(false);
+  const canGoBack = currentIndex < db.length - 1;
+  const canSwipe = currentIndex >= 0;
 
   const childRefs = useMemo(
     () =>
@@ -65,18 +72,27 @@ function Swiping() {
     currentIndexRef.current = val;
   };
 
-  const canGoBack = currentIndex < db.length - 1;
-
-  const canSwipe = currentIndex >= 0;
-
   // set last direction and decrease current index
-  const swiped = (direction, placeId, index) => {
+  const swiped = async (direction, placeId, index) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
     if (direction === "right") {
       setPlaceId((prev) => [...prev, placeId]);
     }
+    if (
+      currentIndex === db.length - 1 &&
+      localStorage.getItem("isFirst") === "true"
+    ) {
+      setIsFirst(true);
+      localStorage.setItem("isFirst", false);
+    }
   };
+
+  useEffect(() => {
+    if (!canSwipe) {
+      setIsRunout(true);
+    }
+  }, [currentIndex]);
 
   const swipe = async (dir, placeId) => {
     if (canSwipe && currentIndex < db.length) {
@@ -85,10 +101,6 @@ function Swiping() {
   };
 
   const outOfFrame = (placeId, idx) => {
-    console.log(
-      `${placeId} (${idx}) left the screen!`,
-      currentIndexRef.current
-    );
     // handle the case in which go back is pressed before card goes outOfFrame
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
     // TODO: when quickly swipe and restore multiple times the same card,
@@ -105,60 +117,145 @@ function Swiping() {
     setPlaceId((prev) => prev.slice(0, -1));
   };
 
+  const handleMakeList = async () => {
+    setIsComplete(false);
+    setIsRunout(false);
+
+    setTimeout(() => {
+      console.log("placeId", placeId);
+    }, 2000);
+  };
+
   return (
     <S.SwipingWrap>
-      {/* // ! Header */}
-      <S.SwipingNavContainer>
-        {currentIndex !== db.length - 1 ? (
-          <S.SwipingNavButton
-            width="28px"
-            height="28px"
-            onClick={() => goBack()}
-          >
-            <Image src="/svg/undo.svg" alt="undo" width={28} height={28} />
-          </S.SwipingNavButton>
-        ) : (
-          <div />
-        )}
-
-        <S.SwipingNavButton width="auto" height="28px">
-          완료하기
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "start",
+        }}
+      >
+        <S.SwipingNavButton
+          width="140px"
+          height="40px"
+          onClick={() => route.push("/")}
+        >
+          <Image
+            src="/images/nav_logo.png"
+            width={140}
+            height={40}
+            alt="nav_logo"
+          />
         </S.SwipingNavButton>
-      </S.SwipingNavContainer>
+      </div>
 
       {/* // ! Swipe Card Deck */}
       <S.SwipingCardContainer>
-        {db.map((character, index) => (
-          <Card
-            key={character.title}
-            ref={childRefs[index]}
-            character={character}
-            swiped={swiped}
-            outOfFrame={outOfFrame}
-            index={index}
-          />
-        ))}
+        {canSwipe ? (
+          db.map((place, index) => (
+            <Card
+              key={place.title}
+              ref={childRefs[index]}
+              place={place}
+              swiped={swiped}
+              outOfFrame={outOfFrame}
+              index={index}
+            />
+          ))
+        ) : (
+          <S.SwipingRunoutContainer>
+            <p
+              style={{
+                fontSize: "20px",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              선택이 모두 완료되었습니다.
+            </p>
+          </S.SwipingRunoutContainer>
+        )}
+
+        {isComplete && <CompleteMessage />}
         <S.SwipingActionButtonContainer>
           <S.SwipingActionButton
             type="button"
+            onClick={async () => await goBack()}
+            width="50px"
+            height="50px"
+            disabled={!canGoBack}
+          >
+            <Image src="/svg/undo.svg" alt="dislike" width={25} height={25} />
+          </S.SwipingActionButton>
+          <S.SwipingActionButton
+            type="button"
             onClick={() => swipe("left", db[currentIndex].placeId)}
+            disabled={!canGoBack}
           >
             <Image
               src="/svg/dislike.svg"
               alt="dislike"
-              width={20}
-              height={20}
+              width={25}
+              height={25}
             />
           </S.SwipingActionButton>
 
           <S.SwipingActionButton
             type="button"
             onClick={() => swipe("right", db[currentIndex].placeId)}
+            disabled={!canSwipe}
           >
-            <Image src="/svg/like.svg" alt="like" width={30} height={30} />
+            <Image src="/svg/like.svg" alt="like" width={40} height={40} />
+          </S.SwipingActionButton>
+          <S.SwipingActionButton
+            type="button"
+            onClick={() => setIsComplete(true)}
+            width="50px"
+            height="50px"
+            disabled={placeId.length === 0}
+          >
+            <Image src="/svg/pause.svg" alt="like" width={25} height={25} />
           </S.SwipingActionButton>
         </S.SwipingActionButtonContainer>
       </S.SwipingCardContainer>
+      {isComplete && (
+        <CustomModal
+          onConfirm={handleMakeList}
+          onClose={() => setIsComplete(false)}
+          bodyText={`진행 중인 스와이핑을 종료하고,\nAI 결과 리스트를 만드시겠습니까?`}
+          cancelText={"취소"}
+          confirmText={"만들기"}
+          isAlert={false}
+        />
+      )}
+      {isRunout && (
+        <CustomModal
+          onConfirm={handleMakeList}
+          bodyText={`선택이 모두 완료되었습니다. AI 결과 리스트를 생성합니다.`}
+          confirmText={"만들기"}
+          isAlert={true}
+        />
+      )}
+      {isFirst && (
+        <CustomModal
+          onConfirm={async () => {
+            await goBack();
+            setIsFirst(false);
+          }}
+          onClose={async () => {
+            setIsFirst(false);
+          }}
+          bodyText={
+            lastDirection === "right"
+              ? `사진을 오른쪽으로 미는 것은 이 장소에 관심이 있다는 뜻입니다.`
+              : `이 장소에 관심이 없나요? 사진을 왼쪽으로 미는 것은 이 장소에 관심이 없다는 뜻입니다.`
+          }
+          cancelText={
+            lastDirection === "right" ? "알고있어요 !" : "알고있어요 !"
+          }
+          confirmText={lastDirection === "right" ? "몰랐어요 !" : "몰랐어요 !"}
+        />
+      )}
     </S.SwipingWrap>
   );
 }
