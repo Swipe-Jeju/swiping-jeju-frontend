@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "@/components/_styled/homeStyled";
-import HomeMapSelction from "@/components/home/homeMapSelection/homeMapSelection";
+import HomeMapSelction from "@/components/home/homeMapSelection/HomeMapSelection";
 import HomeStyleInput from "@/components/home/homeStyleInput/HomeStyleInput";
 import HomeLanding from "@/components/home/homeLading/HomeLanding";
 
