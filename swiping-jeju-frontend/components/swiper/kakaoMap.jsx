@@ -5,7 +5,13 @@ const KakaoMap = ({ place }) => {
     <>
       <Map
         center={{ lat: place.lat, lng: place.lng }}
-        style={{ width: "100%", height: "100px", minWidth: "280px" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          minWidth: "280px",
+          borderRadius: "30px",
+          pointerEvents: "none",
+        }}
       >
         <MapMarker
           key={place.placeId}
