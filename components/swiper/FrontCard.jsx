@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { a } from "@react-spring/web";
+import Image from "next/image";
 
 const SwipingFrontSideCard = styled(a.div)`
   position: absolute;
   border-radius: 15px;
-  background-color: red;
-  background-image: url(${(props) => props.character.img});
+  background-image: url(${(props) => props.place.img});
   background-size: cover;
   width: 100%;
   max-width: 100%;
@@ -29,9 +29,8 @@ const SwipingCardGradient = styled.div`
 
 const SwipingCardTitle = styled.p`
   color: white;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
-  margin: 0 10px;
 `;
 
 const SwipingCardKeywordContainer = styled.div``;
@@ -39,28 +38,52 @@ const SwipingCardKeywordContainer = styled.div``;
 const SwipingCardKeyword = styled.p`
   display: inline;
   margin: 0 10px;
-  border-radius: 2px;
-  padding: 5px;
+  border-radius: 20px;
+  padding: 5px 10px;
   background-color: white;
 `;
 
-const FrontCard = ({ character, opacity, transform }) => {
+const SwipingCardContentContainer = styled.div`
+  position: absolute;
+  bottom: 30%;
+  left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const SwipingCardTitleContainer = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+`;
+
+const FrontCard = ({ place, opacity, transform }) => {
   return (
     <SwipingFrontSideCard
-      character={character}
+      place={place}
       style={{
         opacity: opacity.to((o) => 1 - o),
         transform,
       }}
     >
-      <SwipingCardGradient>
-        <SwipingCardTitle>{character.title}</SwipingCardTitle>
+      <SwipingCardGradient />
+      <SwipingCardContentContainer>
+        <SwipingCardTitleContainer>
+          <Image
+            src="/svg/locationIcon.svg"
+            alt="location"
+            width={30}
+            height={30}
+          />
+          <SwipingCardTitle>{place.title}</SwipingCardTitle>
+        </SwipingCardTitleContainer>
         <SwipingCardKeywordContainer>
-          {character.keyword.map((keyword, index) => (
+          {place.keyword.map((keyword, index) => (
             <SwipingCardKeyword key={index}>{keyword}</SwipingCardKeyword>
           ))}
         </SwipingCardKeywordContainer>
-      </SwipingCardGradient>
+      </SwipingCardContentContainer>
     </SwipingFrontSideCard>
   );
 };

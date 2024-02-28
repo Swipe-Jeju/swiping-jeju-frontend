@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { a } from "@react-spring/web";
+import KakaoMap from "./kakaoMap";
 
 const SwipingBackSideCard = styled(a.div)`
   position: absolute;
@@ -11,14 +12,71 @@ const SwipingBackSideCard = styled(a.div)`
   width: 100%;
   max-width: 100%;
   height: calc(100vh - 116px);
-  max-width: 100%;
-  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
+  align-items: center;
+
+  padding: 80px 20px 20px 20px;
 `;
 
-const BackCard = ({ character, opacity, transform }) => {
+const StyledButton = styled.button`
+  border: none;
+  background: none;
+  padding: 0;
+  white-space: nowrap;
+`;
+
+const StyledParagraph = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 28px;
+  color: #000000;
+  margin-bottom: 10px;
+`;
+
+const StyledKeyword = styled.p`
+  font-size: 16px;
+  line-height: 19px;
+  background-color: #000000;
+  color: #ffffff;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+`;
+
+const StyledContent = styled.p`
+  border: 1px solid #000000;
+  font-size: 16px;
+  height: auto;
+  max-height: 70px;
+  color: #000000;
+  background-color: #ffffff;
+  line-height: 20px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 4px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+`;
+
+const StyledKeywordContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  gap: 10px;
+`;
+
+const BackCard = ({ place, opacity, transform }) => {
   return (
     <SwipingBackSideCard
-      character={character}
+      place={place}
       style={{
         opacity,
         transform: transform.to((t) => `${t} rotateY(180deg)`),
@@ -26,86 +84,52 @@ const BackCard = ({ character, opacity, transform }) => {
     >
       <div
         style={{
+          position: "absolute",
+          top: "20px",
           display: "flex",
-          justifyContent: "flex-end",
+          width: "100%",
+          padding: "0 20px",
+          justifyContent: "flex-start",
+          position: "absolute",
         }}
       >
-        <button
-          style={{
-            border: "none",
-            background: "none",
-            padding: "0",
-            whiteSpace: "nowrap",
-          }}
-        >
-          <Image src="/svg/close.svg" alt="close" width={30} height={30} />
-        </button>
+        <StyledButton>
+          <Image src="/svg/undo.svg" alt="close" width={30} height={30} />
+        </StyledButton>
       </div>
 
-      <p
-        style={{
-          fontSize: "24px",
-          fontWeight: "bold",
-          lineHeight: "28px",
-          color: "#000000",
-          marginBottom: "10px",
-        }}
-      >
-        {character.title}
-      </p>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          marginBottom: "10px",
-          gap: "10px",
-        }}
-      >
-        {character.keyword.map((keyword, index) => (
-          <p
-            style={{
-              fontSize: "16px",
-              lineHeight: "19px",
-              backgroundColor: "#FFFFFF",
-              color: "#000000",
-              marginBottom: "5px",
-              padding: "5px",
-              borderRadius: "2px",
-            }}
-            key={index}
-          >
-            {keyword}
-          </p>
-        ))}
-      </div>
-      <p
-        style={{
-          fontSize: "16px",
-          height: "auto",
-          maxHeight: "70px",
-          color: "#000000",
-          backgroundColor: "#FFFFFF",
-          lineHeight: "20px",
-          marginBottom: "10px",
-          borderRadius: "10px",
-          padding: "8px",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          display: "-webkit-box",
-          WebkitLineClamp: 3 /* number of lines to show */,
-          lineClamp: 3,
-          WebkitBoxOrient: "vertical",
-        }}
-      >
-        {character.content}
-      </p>
       <div
         style={{
           width: "100%",
-          height: "200px",
-          backgroundColor: "red",
+          height: "100px",
         }}
-      ></div>
+      >
+        <KakaoMap place={place} />
+      </div>
+
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            src="/svg/locationIcon.svg"
+            alt="location"
+            width={30}
+            height={30}
+          />
+          <StyledParagraph>{place.title}</StyledParagraph>
+        </div>
+
+        <StyledKeywordContainer>
+          {place.keyword.map((keyword, index) => (
+            <StyledKeyword key={index}>{keyword}</StyledKeyword>
+          ))}
+        </StyledKeywordContainer>
+        <StyledContent>{place.content}</StyledContent>
+      </div>
     </SwipingBackSideCard>
   );
 };
