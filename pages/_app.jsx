@@ -161,6 +161,9 @@ export default function App({ Component, pageProps }) {
                     }
                 `}
             </style>
+
+            <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+            <script>Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)</script>
         </Body>
     );
 }

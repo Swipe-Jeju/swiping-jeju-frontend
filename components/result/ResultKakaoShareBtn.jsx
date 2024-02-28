@@ -11,7 +11,7 @@ const KakaoShareButton = ({ description }) => {
 
             if (!Kakao.isInitialized()) {
                 // process.env.NEXT_PUBLIC_KAKAO_API_KEY
-                Kakao.init("12bb258e4a7f082b0fd557f62e2f109a");
+                Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
             }
         }
     }, []);
