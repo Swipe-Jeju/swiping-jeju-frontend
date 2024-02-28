@@ -47,3 +47,10 @@
     font-weight: lighter;
     src: url("./pretendard-Thin.woff") format("woff");
 }
+
+@font-face {
+    font-family: "BagelFatOne";
+    font-style: normal;
+    font-weight: 500;
+    src: url("./BagelFatOne-Regular.ttf") format("ttf");
+}
