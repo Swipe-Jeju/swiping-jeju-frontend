@@ -159,6 +159,9 @@ export default function App({ Component, pageProps }) {
                         text-decoration: none;
                         color: inherit;
                     }
+                    html {
+                        background-color: black;
+                    }
                 `}
             </style>
 
