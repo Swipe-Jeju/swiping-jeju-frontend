@@ -1,29 +1,37 @@
-import styled from "styled-components";
+import Script from "next/script";
+import Footer from "./Footer";
 import HeadTitle from "./Head";
-import NavBar from "./NavBar";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-  max-width: 430px;
-  width: 100%;
-  min-height: 100vh;
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
+    max-width: 430px;
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
 `;
 
 const Content = styled.div`
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 `;
 
 export default function Layout({ children }) {
-  return (
-    <Wrapper>
-      <HeadTitle />
-      <NavBar />
-      <Content>{children}</Content>
-      {/* <Footer/> */}
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <HeadTitle />
+            <Content>{children}</Content>
+            <Script
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12bb258e4a7f082b0fd557f62e2f109a&libraries=services,clusterer&autoload=false"
+                strategy="beforeInteractive"
+            />
+            <Script
+                src="https://developers.kakao.com/sdk/js/kakao.js"
+                strategy="afterInteractive"
+            />
+            <Footer />
+        </Wrapper>
+    );
 }
