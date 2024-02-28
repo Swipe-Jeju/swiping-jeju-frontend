@@ -1,5 +1,3 @@
-"use client";
-
 import { useRouter } from "next/router";
 import * as S from "@/components/_styled/resultStyled";
 import MainImg from "@/public/images/background/char_3.png";
