@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as S from "./style";
 import HomeMapSelction from "@/components/home/homeMapSelection/homeMapSelection";
 import HomeStyleInput from "@/components/home/homeStyleInput/HomeStyleInput";
+import HomeLanding from "@/components/home/homeLading/HomeLanding";
 
 function Home() {
     const [step, setStep] = useState(0);
@@ -19,7 +20,8 @@ function Home() {
         <>
             <S.MainTitle>Home dsads</S.MainTitle>
             {/* #1 시작 하기 버튼 -> homeSelect 컴포넌트 보이게 하기  */}
-            {step === 0 && <button onClick={handleNext}>시작하기</button>}
+            {/* <button onClick={handleNext}>시작하기</button> */}
+            {step === 0 && <HomeLanding onNext={handleNext} />}
 
             {/* #2 시작 하기 버튼 누른 다음, homeSelect 컴포넌트에서 지도 선택하기 컴포넌트 */}
             {step === 1 && (
