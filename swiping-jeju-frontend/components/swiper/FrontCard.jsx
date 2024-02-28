@@ -39,7 +39,7 @@ const SwipingCardKeyword = styled.p`
   display: inline;
   margin: 0 10px;
   border-radius: 20px;
-  padding: 5px 10px;
+  padding: 10px 20px;
   background-color: white;
 `;
 
