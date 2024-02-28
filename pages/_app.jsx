@@ -154,13 +154,16 @@ export default function App({ Component, pageProps }) {
           * {
             box-sizing: border-box;
           }
-
+          
           a {
-            text-decoration: none;
-            color: inherit;
-          }
-        `}
-      </style>
+                  text-decoration: none;
+                        color: inherit;
+                    }
+         html {
+                        background-color: black;
+                    }
+                `}
+            </style>
 
       <script async src="https://developers.kakao.com/sdk/js/kakao.js"></script>
       <script>Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)</script>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./style";
+import Image from "next/image";
+import JejuMapImg from "../../../public/images/jeju_map.png";
 
 function HomeMapSelection({ onNext, setSwipingAlbum }) {
     const mapOptions = [
@@ -49,6 +51,24 @@ function HomeMapSelection({ onNext, setSwipingAlbum }) {
         <>
             <S.MapContainer>
                 {/* 지도 컨테이너  */}
+                <S.MapTitleContainer>
+                    <S.MapTitle>
+                        원하는{" "}
+                        <strong style={{ color: "#00FF66" }}>장소</strong>를{" "}
+                        <br />
+                        선택하세요
+                    </S.MapTitle>
+                </S.MapTitleContainer>
+                {/* 지도 이미지 */}
+                <S.MapImageContainer>
+                    <Image
+                        height={260}
+                        src={JejuMapImg}
+                        alt="제주도 지도"
+                        objectFit="contain"
+                    />
+                </S.MapImageContainer>
+                {/* 지도 선택 옵션 */}
                 {mapOptions.map((map) => (
                     <S.MapOption
                         key={map.id}

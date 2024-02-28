@@ -10,7 +10,6 @@ const KakaoShareButton = ({ description }) => {
             const { Kakao } = window;
 
             if (!Kakao.isInitialized()) {
-                // process.env.NEXT_PUBLIC_KAKAO_API_KEY
                 Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
             }
         }
