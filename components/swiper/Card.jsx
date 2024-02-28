@@ -4,8 +4,8 @@ import BackCard from "./BackCard";
 import FrontCard from "./FrontCard";
 import * as S from "../../pages/swiping/style";
 
-const Card = forwardRef(({ character, swiped, outOfFrame, index }, ref) => {
-  const [flipped, set] = useState(false);
+const Card = forwardRef(({ place, swiped, outOfFrame, index }, ref) => {
+  const [flipped, setFlipped] = useState(false);
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
@@ -14,24 +14,22 @@ const Card = forwardRef(({ character, swiped, outOfFrame, index }, ref) => {
 
   return (
     <S.SwipingCardDeck
-      onSwipe={(dir) => swiped(dir, character.placeId, index)}
-      onCardLeftScreen={() => outOfFrame(character.placeId, index)}
+      onSwipe={(dir) => {
+        swiped(dir, place.placeId, index);
+        setFlipped(false);
+      }}
+      onCardLeftScreen={() => {
+        setFlipped(false);
+        outOfFrame(place.placeId, index);
+      }}
       ref={ref}
     >
       <S.SwipingCard
-        onClick={() => set((prev) => !prev)}
-        onTouchEnd={() => set((prev) => !prev)}
+        onClick={() => setFlipped((prev) => !prev)}
+        onTouchEnd={() => setFlipped((prev) => !prev)}
       >
-        <BackCard
-          character={character}
-          opacity={opacity}
-          transform={transform}
-        />
-        <FrontCard
-          character={character}
-          opacity={opacity}
-          transform={transform}
-        />
+        <BackCard place={place} opacity={opacity} transform={transform} />
+        <FrontCard place={place} opacity={opacity} transform={transform} />
       </S.SwipingCard>
     </S.SwipingCardDeck>
   );
