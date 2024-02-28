@@ -11,8 +11,10 @@ const db = [
     img: "/0.jpeg",
     lng: 126.9408234,
     lat: 33.45888279999969,
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: `제주  어물전은 제주도 서귀포시 성산읍에 있는 
+      인기 맛집으로, 제주의 신선한 해산물과 지역 
+      특성을 활용한 요리를 선보이는 곳입니다. 
+      이곳은 특히 해산물 요리에  있어서 독특한 메`,
     keyword: ["vibe", "ocean", "party"],
     placeId: "placeId1",
   },
@@ -21,7 +23,10 @@ const db = [
     img: "/1.jpeg",
     lng: 126.9408234,
     lat: 33.45888279999969,
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: `제주  어물전은 제주도 서귀포시 성산읍에 있는 
+    인기 맛집으로, 제주의 신선한 해산물과 지역 
+    특성을 활용한 요리를 선보이는 곳입니다. 
+    이곳은 특히 해산물 요리에  있어서 독특한 메`,
     keyword: ["cafe", "nature", "adventure"],
     placeId: "placeId2",
   },
@@ -39,8 +44,10 @@ const db = [
     img: "/3.jpeg",
     lng: 126.9408234,
     lat: 33.45888279999969,
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: `제주  어물전은 제주도 서귀포시 성산읍에 있는 
+      인기 맛집으로, 제주의 신선한 해산물과 지역 
+      특성을 활용한 요리를 선보이는 곳입니다. 
+      이곳은 특히 해산물 요리에  있어서 독특한 메`,
     keyword: ["culture", "history", "sightseeing"],
     placeId: "placeId4",
   },
@@ -126,6 +133,11 @@ function Swiping() {
     }, 2000);
   };
 
+  const openInGoogleMaps = (name, lat, lng) => {
+    const url = `https://map.kakao.com/link/to/${name},${lat},${lng}`;
+    window.open(url, "_blank");
+  };
+
   return (
     <S.SwipingWrap>
       <div
@@ -197,7 +209,25 @@ function Swiping() {
         )}
 
         <S.SwipingActionButtonContainer>
-          <div style={{ width: "50px", height: "50px" }} />
+          <S.SwipingActionButton
+            type="button"
+            onClick={() =>
+              openInGoogleMaps(
+                db[currentIndex].title,
+                db[currentIndex].lat,
+                db[currentIndex].lng
+              )
+            }
+            width="50px"
+            height="50px"
+          >
+            <Image
+              src="/svg/fork_right.svg"
+              alt="like"
+              width={25}
+              height={25}
+            />
+          </S.SwipingActionButton>
           <S.SwipingActionButton
             type="button"
             onClick={() => swipe("left", db[currentIndex].placeId)}
