@@ -11,7 +11,6 @@ const Wrapper = styled.div`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
 `;
 
 const Content = styled.div`
