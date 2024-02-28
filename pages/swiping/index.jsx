@@ -132,7 +132,9 @@ function Swiping() {
         style={{
           width: "100%",
           display: "flex",
-          justifyContent: "start",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 20px",
         }}
       >
         <S.SwipingNavButton
@@ -147,6 +149,24 @@ function Swiping() {
             alt="nav_logo"
           />
         </S.SwipingNavButton>
+        {canGoBack ? (
+          <S.SwipingActionButton
+            type="button"
+            onClick={async () => await goBack()}
+            width="50px"
+            height="50px"
+            backgroundColor="black"
+          >
+            <Image
+              src="/svg/undo_white.svg"
+              alt="like"
+              width={25}
+              height={25}
+            />
+          </S.SwipingActionButton>
+        ) : (
+          <div />
+        )}
       </div>
 
       {/* // ! Swipe Card Deck */}
@@ -177,15 +197,7 @@ function Swiping() {
         )}
 
         <S.SwipingActionButtonContainer>
-          <S.SwipingActionButton
-            type="button"
-            onClick={async () => await goBack()}
-            width="50px"
-            height="50px"
-            disabled={!canGoBack}
-          >
-            <Image src="/svg/undo.svg" alt="dislike" width={25} height={25} />
-          </S.SwipingActionButton>
+          <div style={{ width: "50px", height: "50px" }} />
           <S.SwipingActionButton
             type="button"
             onClick={() => swipe("left", db[currentIndex].placeId)}
@@ -206,15 +218,44 @@ function Swiping() {
           >
             <Image src="/svg/like.svg" alt="like" width={40} height={40} />
           </S.SwipingActionButton>
-          <S.SwipingActionButton
-            type="button"
-            onClick={() => setIsComplete(true)}
-            width="50px"
-            height="50px"
-            disabled={placeId?.length === 0}
+          <div
+            style={{
+              width: "50px",
+              height: "50px",
+              position: "relative",
+            }}
           >
-            <Image src="/svg/pause.svg" alt="like" width={25} height={25} />
-          </S.SwipingActionButton>
+            <S.SwipingActionButton
+              type="button"
+              onClick={() => setIsComplete(true)}
+              width="50px"
+              height="50px"
+              disabled={placeId?.length === 0}
+            >
+              <Image
+                src="/svg/swipe_complete.svg"
+                alt="like"
+                width={25}
+                height={25}
+              />
+              <p
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  textAlign: "center",
+                  position: "absolute",
+                  top: "-10px",
+                  right: "-10px",
+                  borderRadius: "50%",
+                  padding: "4px",
+                  color: "white",
+                  backgroundColor: "red",
+                }}
+              >
+                {placeId?.length}
+              </p>
+            </S.SwipingActionButton>
+          </div>
         </S.SwipingActionButtonContainer>
       </S.SwipingCardContainer>
       {isComplete && (

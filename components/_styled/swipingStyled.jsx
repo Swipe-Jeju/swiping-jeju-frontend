@@ -9,7 +9,7 @@ export const SwipingWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 
   padding: 0 10px 0 10px;
   background-color: #000;
@@ -72,6 +72,12 @@ export const SwipingActionButtonContainer = styled.div`
 export const SwipingActionButton = styled.button`
   border: none;
   background: ${(props) => (props.disabled ? "lightGray" : "white")};
+  background-color: ${(props) =>
+    props.disabled
+      ? "lightGray"
+      : props.backgroundColor
+      ? props.backgroundColor
+      : "white"};
   border-radius: 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   width: ${(props) => props.width || "72px"};
@@ -82,11 +88,11 @@ export const SwipingActionButton = styled.button`
 `;
 
 export const SwipingRunoutContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: lightgray;
-border-radius: 16px;
-width: 100%;
-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
 `;

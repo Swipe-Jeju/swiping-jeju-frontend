@@ -45,7 +45,7 @@ const SwipingCardKeyword = styled.p`
 
 const SwipingCardContentContainer = styled.div`
   position: absolute;
-  bottom: 30%;
+  bottom: 25%;
   left: 10%;
   display: flex;
   flex-direction: column;
@@ -70,12 +70,6 @@ const FrontCard = ({ place, opacity, transform }) => {
       <SwipingCardGradient />
       <SwipingCardContentContainer>
         <SwipingCardTitleContainer>
-          <Image
-            src="/svg/locationIcon.svg"
-            alt="location"
-            width={30}
-            height={30}
-          />
           <SwipingCardTitle>{place.title}</SwipingCardTitle>
         </SwipingCardTitleContainer>
         <SwipingCardKeywordContainer>
