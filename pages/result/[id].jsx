@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/router";
-import * as S from "./style";
+import * as S from "@/components/_styled/resultStyled";
 import { useEffect, useState } from "react";
 import ResultHotplaceList from "@/components/result/ResultHotplaceList";
 import KakaoMap from "./KakaoMap";

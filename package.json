@@ -4,17 +4,23 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run ingest-local && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ingest-local": "tsx -r dotenv/config scripts/ingest-data-local.js"
   },
   "dependencies": {
+    "@langchain/community": "^0.0.17",
+    "@langchain/openai": "^0.0.12",
     "@next/font": "13.4.10",
     "@react-spring/web": "^9.5.5",
     "axios": "^1.6.7",
     "babel-plugin-styled-components": "^2.1.1",
+    "dotenv": "^16.3.1",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
+    "hnswlib-node": "^1.4.2",
+    "langchain": "^0.1.23",
     "next": "13.4.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -22,5 +28,8 @@
     "react-kakao-maps-sdk": "^1.1.26",
     "react-tinder-card": "^1.6.4",
     "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1"
   }
 }

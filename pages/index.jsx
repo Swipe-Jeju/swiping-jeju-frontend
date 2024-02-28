@@ -1,11 +1,13 @@
 import Home from "./home";
-import * as S from "./style";
+import styled from "styled-components";
+
+export const Container = styled.div``;
 
 export default function Main() {
-    return (
-        <S.Container>
-            {/* 홈 화면 */}
-            <Home />
-        </S.Container>
-    );
+  return (
+    <Container>
+      {/* 홈 화면 */}
+      <Home />
+    </Container>
+  );
 }
