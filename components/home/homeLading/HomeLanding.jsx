@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Char1 from "../../../public/images/background/char_gereen.png";
 // import Char2 from "../../../public/images/background/char_orange.png";
 import Char3 from "../../../public/images/background/char_3.png";
@@ -7,12 +7,23 @@ import Logo from "../../../public/images/background/logo.png";
 import * as S from "./style";
 import Image from "next/image";
 
-function HomeLanding({ handleNext }) {
+function HomeLanding({ onNext }) {
     const [isClicked, setIsClicked] = useState(false); // 클릭 상태
 
     const handleClick = () => {
         setIsClicked(true); // 버튼 클릭 시 상태 업데이트
     };
+
+    // isClicked 상태가 true로 변경될 때 handleNext 함수 호출
+    useEffect(() => {
+        if (isClicked) {
+            // 1초 후에 handleNext 함수 호출
+            const timeoutId = setTimeout(() => {
+                onNext();
+            }, 1000);
+            return () => clearTimeout(timeoutId);
+        }
+    }, [isClicked, onNext]); // 의존성 배열에 isClicked와 handleNext 추가
 
     return (
         <>
